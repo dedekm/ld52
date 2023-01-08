@@ -1,7 +1,9 @@
 extends Spatial
 
+onready var level := get_node("/root/Level")
+
 func _ready():
-  pass
+  $HitArea.add_to_group("grass")
 
 func cut(point: Vector3):
   translation.y = point.y - 2.2

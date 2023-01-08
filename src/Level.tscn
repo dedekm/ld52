@@ -20,6 +20,7 @@ mesh = SubResource( 1 )
 [node name="Grass" type="Spatial" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.771391, 0.636361, 0, -0.636361, 0.771391, 0, 7.67454, 0 )

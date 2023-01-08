@@ -1,9 +1,9 @@
 extends Spatial
 
 func _ready():
-  var grass := $Grass/Straw
-  var straw_scene = load("res://src/GrassStraw.tscn")
-  var width = 50
+  var grass := $Grass
+  var straw_scene = load("res://src/Straw.tscn")
+  var width = 30
   for x in width:
     for z in width:
         var straw_instance = straw_scene.instance()
@@ -15,4 +15,4 @@ func _ready():
         rng.randomize()
         straw_instance.translation.y -= rng.randi_range(0, 3) * 0.1
 
-        $Grass.add_child(straw_instance)
+        grass.add_child(straw_instance)
