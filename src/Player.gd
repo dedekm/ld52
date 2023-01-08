@@ -9,21 +9,31 @@ var dir = Vector3()
 
 const DEACCEL= 16
 const MAX_SLOPE_ANGLE = 40
+const MOUSE_SENSITIVITY = 0.1
 
-var camera
-var rotation_helper
-
-var MOUSE_SENSITIVITY = 0.1
+onready var camera := $Rotation_Helper/Camera
+onready var rotation_helper := $Rotation_Helper
+onready var ray := $Rotation_Helper/Hands/Scythe/RayCast
 
 func _ready():
-  camera = $Rotation_Helper/Camera
-  rotation_helper = $Rotation_Helper
-
   Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-    
+
 func _physics_process(delta):
   process_input(delta)
   process_movement(delta)
+
+  var collisions = []
+  while ray.is_colliding():
+    var obj : Object = ray.get_collider()
+
+    obj.get_parent().cut(ray.get_collision_point())
+
+    collisions.append(obj)
+    ray.add_exception(obj)
+    ray.force_raycast_update()
+
+  for obj in collisions:
+    ray.remove_exception( obj )
 
 func process_input(_delta):
   dir = Vector3()
@@ -39,7 +49,7 @@ func process_input(_delta):
       input_movement_vector.x -= 1
   if Input.is_action_pressed("ui_right"):
       input_movement_vector.x = 1
-  
+
   input_movement_vector = input_movement_vector.normalized()
 
   dir += -cam_xform.basis.z.normalized() * input_movement_vector.y
@@ -82,6 +92,3 @@ func _input(event):
     var camera_rot = rotation_helper.rotation_degrees
     camera_rot.x = clamp(camera_rot.x, -70, 70)
     rotation_helper.rotation_degrees = camera_rot
-
-func _on_ScytheArea_body_entered(body: PhysicsBody):
-  body.get_parent().queue_free()
