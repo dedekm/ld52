@@ -3,10 +3,13 @@ extends Spatial
 const morning_sun_color := Color("fcd14d")
 const noon_sun_color := Color("ffe484")
 const evening_sun_color := Color("f96229")
+const night_sun_color := Color("dad9d7")
 
 const morning_sky_color := Color("a5d6f1")
 const noon_sky_color := Color("29cce5")
 const evening_sky_color := Color("001f38")
+const night_sky_color := Color("070b34")
+
 
 var current_points := 0
 var max_points := 0
@@ -44,9 +47,6 @@ func _ready():
 func _update_enviroment():
   completed = current_points / float(max_points)
 
-  # TODO: rm this
-  $ScoreLabel.text = String(completed)
-
   var coef : float
   if completed < 0.5:
     coef = completed * 2
@@ -65,3 +65,28 @@ func _update_enviroment():
 func add_point():
   current_points += 1
   _update_enviroment()
+
+  if current_points == max_points:
+    _task_completed()
+
+func _task_completed():
+  $FadeOut/AnimationPlayer.play('fade_out')
+  $FadeOut.show()
+
+func fade_out_finished():
+  yield(get_tree().create_timer(0.5), "timeout")
+  $FadeOut/AnimationPlayer.play('fade_in')
+  $Stack.show()
+  $Fire.show()
+  $Fire/FireSoundPlayer.play()
+
+  sun_material.albedo_color = night_sun_color
+  sun_helper.rotation_degrees.x = -45
+  main_light.rotation_degrees.x = -45
+  main_light.light_color = night_sun_color
+  main_light.light_energy = 0.2
+  enviroment.background_color = night_sky_color
+  enviroment.background_energy = 0.2
+
+func fade_in_finished():
+  $FadeOut.hide()

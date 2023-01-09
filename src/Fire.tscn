@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/fire_1.wav" type="AudioStream" id=1]
+
+[sub_resource type="SpatialMaterial" id=8]
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 0.309804, 0.309804, 0.309804, 1 )
+
+[sub_resource type="QuadMesh" id=5]
+material = SubResource( 8 )
+size = Vector2( 0.1, 0.1 )
+
+[node name="Fire" type="Spatial"]
+
+[node name="FireSoundPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 1 )
+unit_size = 8.0
+max_db = 1.0
+
+[node name="Particles" type="CPUParticles" parent="."]
+amount = 20
+lifetime = 2.0
+explosiveness = 0.05
+randomness = 0.5
+lifetime_randomness = 0.3
+mesh = SubResource( 5 )
+direction = Vector3( 0, 1, 0 )
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 2.0
+
+[node name="Lights" type="Spatial" parent="."]
+
+[node name="OmniLight1" type="OmniLight" parent="Lights"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0879, 1.57189, 0 )
+light_color = Color( 0.94902, 0.423529, 0, 1 )
+light_energy = 2.0
+
+[node name="OmniLight2" type="OmniLight" parent="Lights"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.511872, 1.57189, 1.04262 )
+light_color = Color( 0.94902, 0.423529, 0, 1 )
+light_energy = 2.0
+
+[node name="OmniLight3" type="OmniLight" parent="Lights"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0961, 0.715553, -0.368301 )
+light_color = Color( 0.94902, 0.423529, 0, 1 )
+light_energy = 2.0

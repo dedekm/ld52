@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/Stack.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Level.gd" type="Script" id=2]
 [ext_resource path="res://src/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/FadeOut.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Fire.tscn" type="PackedScene" id=5]
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0.486275, 0.266667, 0.266667, 1 )
@@ -37,17 +39,14 @@ mesh = SubResource( 1 )
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 visible = false
 
+[node name="Fire" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5884, 0, -6.82221 )
+visible = false
+
 [node name="Grass" type="Spatial" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
-
-[node name="ScoreLabel" type="Label" parent="."]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 40.0
-margin_bottom = 14.0
-text = "1000"
 
 [node name="SunHelper" type="Spatial" parent="."]
 transform = Transform( 0.965926, -0.0885213, 0.24321, 0, 0.939693, 0.34202, -0.258819, -0.330366, 0.907673, 6.55651e-07, -3.8147e-06, 2.6226e-06 )
@@ -64,3 +63,6 @@ transform = Transform( 0.965926, -0.0885214, 0.24321, 0, 0.939693, 0.34202, -0.2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 5 )
+
+[node name="FadeOut" parent="." instance=ExtResource( 4 )]
+visible = false

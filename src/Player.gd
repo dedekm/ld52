@@ -30,11 +30,13 @@ func _physics_process(delta):
 
 func _process_cutting():
   var collisions = []
+  var play_mown_sound := false
   while scythe_ray.is_colliding():
     var obj : Object = scythe_ray.get_collider()
 
     if obj.is_in_group("grass"):
       obj.owner.mow(scythe_ray.get_collision_point())
+      play_mown_sound = true
 
     collisions.append(obj)
     scythe_ray.add_exception(obj)
@@ -42,6 +44,8 @@ func _process_cutting():
 
   scythe_ray.clear_exceptions()
 
+  if play_mown_sound and not $MownStreamPlayer.playing:
+    $MownStreamPlayer.play()
 
 func _process_input(_delta):
   dir = Vector3()
@@ -98,8 +102,14 @@ func _process_movement(delta):
   var accel
   if dir.dot(hvel) > 0:
       accel = ACCEL
+
+      if not $StepsStreamPlayer.playing:
+        $StepsStreamPlayer.play()
   else:
       accel = DEACCEL
+
+      if $StepsStreamPlayer.playing:
+        $StepsStreamPlayer.stop()
 
   hvel = hvel.linear_interpolate(target, accel*delta)
   vel.x = hvel.x
