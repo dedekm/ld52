@@ -1,12 +1,13 @@
 extends KinematicBody
 
 const GRAVITY := 0
-const MAX_SPEED := 20
+const MAX_SPEED := 17
 const ACCEL := 4.5
 
 var vel := Vector3()
 var dir := Vector3()
 var cutting := false
+var cutting_enabled := true
 
 const DEACCEL= 16
 const MAX_SLOPE_ANGLE = 40
@@ -23,7 +24,7 @@ func _ready():
 
 func _physics_process(delta):
   _process_input(delta)
-  if cutting:
+  if cutting && cutting_enabled:
     _process_cutting()
   else:
     _process_movement(delta)
@@ -97,19 +98,22 @@ func _process_movement(delta):
   hvel.y = 0
 
   var target = dir
-  target *= MAX_SPEED
+  if cutting_enabled:
+    target *= MAX_SPEED
+  else:
+    target *= MAX_SPEED / 2
 
   var accel
   if dir.dot(hvel) > 0:
-      accel = ACCEL
+    accel = ACCEL
 
-      if not $StepsStreamPlayer.playing:
-        $StepsStreamPlayer.play()
+    if not $StepsStreamPlayer.playing:
+      $StepsStreamPlayer.play()
   else:
-      accel = DEACCEL
+    accel = DEACCEL
 
-      if $StepsStreamPlayer.playing:
-        $StepsStreamPlayer.stop()
+    if $StepsStreamPlayer.playing:
+      $StepsStreamPlayer.stop()
 
   hvel = hvel.linear_interpolate(target, accel*delta)
   vel.x = hvel.x

@@ -77,11 +77,15 @@ func add_point():
     _task_completed()
 
 func _task_completed():
+  $Player.cutting_enabled = false
   $FadeOut/AnimationPlayer.play('fade_out')
   $FadeOut.show()
 
 func fade_out_finished():
   yield(get_tree().create_timer(0.5), "timeout")
+  $Player.hands.hide()
+  $Player.translation = Vector3(-12, 0, -3)
+  $Player.rotation_degrees.y = -110
   $FadeOut/AnimationPlayer.play('fade_in')
   $Objects/Stack.show()
   $Objects/Stack/StaticBody/CollisionShape.disabled = false
