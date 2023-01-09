@@ -48,6 +48,7 @@ shape = SubResource( 3 )
 transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0 )
 billboard = 2
 shaded = true
+alpha_cut = 2
 frames = SubResource( 7 )
 frame = 2
 playing = true

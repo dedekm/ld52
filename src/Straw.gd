@@ -1,5 +1,7 @@
 extends Spatial
 
+var mown := false
+
 onready var level := get_node("/root/Level")
 
 func _ready():
@@ -11,3 +13,7 @@ func mow(point: Vector3):
     translation.y = -2
 
   $AnimatedSprite3D.play("cut")
+
+  if !mown:
+    level.add_point()
+    mown = true
