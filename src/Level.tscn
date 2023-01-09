@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/Stack.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Level.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/FadeOut.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Fire.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/bucket.glb" type="PackedScene" id=6]
+[ext_resource path="res://assets/scythe.glb" type="PackedScene" id=7]
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0.486275, 0.266667, 0.266667, 1 )
@@ -43,7 +44,7 @@ mesh = SubResource( 1 )
 [node name="Grass" type="Spatial" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
+transform = Transform( 0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, -5.69522, 0, 9.8378 )
 
 [node name="SunHelper" type="Spatial" parent="."]
 transform = Transform( 0.965926, -0.0885213, 0.24321, 0, 0.939693, 0.34202, -0.258819, -0.330366, 0.907673, 6.55651e-07, -3.8147e-06, 2.6226e-06 )
@@ -67,14 +68,18 @@ visible = false
 [node name="Objects" type="Spatial" parent="."]
 
 [node name="Fire" parent="Objects" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5884, 0, -6.82221 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.39215, 0, -6.82221 )
 visible = false
 
 [node name="Stack" parent="Objects" instance=ExtResource( 1 )]
+transform = Transform( -0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0, 0, 0 )
 visible = false
 
+[node name="Scythe" parent="Objects/Stack" instance=ExtResource( 7 )]
+transform = Transform( 2.38419e-07, -0.517638, -1.93185, 0.70218, 1.80887, -0.484686, 1.87268, -0.678254, 0.181738, 1.75748, 0, 3.74572 )
+
 [node name="Bucket" parent="Objects" instance=ExtResource( 6 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -9, -0.1, -10 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -7.80372, -0.1, -10 )
 
 [node name="StaticBody" type="StaticBody" parent="Objects/Bucket"]
 

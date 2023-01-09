@@ -23,7 +23,10 @@ onready var enviroment : Environment = $WorldEnvironment.environment
 func _ready():
   $Objects/Stack/StaticBody/CollisionShape.disabled = true
   $Objects/Fire/StaticBody/CollisionShape.disabled = true
-  
+  $Objects/Stack/RotatingHelper/LadyHelper1/Lady/KinematicBody/CollisionShape.disabled = true
+  $Objects/Stack/RotatingHelper/LadyHelper2/Lady/KinematicBody/CollisionShape.disabled = true
+  $Objects/Stack/RotatingHelper/LadyHelper3/Lady/KinematicBody/CollisionShape.disabled = true
+
   var grass := $Grass
   var straw_scene = load("res://src/Straw.tscn")
   var width = 20
@@ -89,6 +92,9 @@ func fade_out_finished():
   $FadeOut/AnimationPlayer.play('fade_in')
   $Objects/Stack.show()
   $Objects/Stack/StaticBody/CollisionShape.disabled = false
+  $Objects/Stack/RotatingHelper/LadyHelper1/Lady/KinematicBody/CollisionShape.disabled = false
+  $Objects/Stack/RotatingHelper/LadyHelper2/Lady/KinematicBody/CollisionShape.disabled = false
+  $Objects/Stack/RotatingHelper/LadyHelper3/Lady/KinematicBody/CollisionShape.disabled = false
   $Objects/Fire.show()
   $Objects/Fire/StaticBody/CollisionShape.disabled = false
   $Objects/Fire/FireSoundPlayer.play()

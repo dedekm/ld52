@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/heystack.glb" type="PackedScene" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://src/Lady.tscn" type="PackedScene" id=2]
 
 [sub_resource type="Animation" id=1]
-resource_name = "Rotate"
+resource_name = "rotate"
 length = 9.0
 loop = true
 tracks/0/type = "value"
@@ -30,23 +30,28 @@ radius = 3.1
 transform = Transform( 2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0 )
 
 [node name="RotatingHelper" type="Spatial" parent="."]
-transform = Transform( -0.105723, 0, 0.994396, 0, 1.045, 0, -0.994396, 0, -0.105723, 0, 0, 0 )
-visible = false
+transform = Transform( 0.177466, 0, 0.984127, 0, 1, 0, -0.984127, 0, 0.177466, 0, 0, 0 )
 
-[node name="Dancer1" type="Sprite3D" parent="RotatingHelper"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0 )
-texture = ExtResource( 2 )
+[node name="LadyHelper1" type="Spatial" parent="RotatingHelper"]
+transform = Transform( -0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 0, 0, 0 )
 
-[node name="Dancer2" type="Sprite3D" parent="RotatingHelper"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1.73205 )
-texture = ExtResource( 2 )
+[node name="Lady" parent="RotatingHelper/LadyHelper1" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7 )
 
-[node name="Dancer3" type="Sprite3D" parent="RotatingHelper"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1.73205 )
-texture = ExtResource( 2 )
+[node name="LadyHelper2" type="Spatial" parent="RotatingHelper"]
+
+[node name="Lady" parent="RotatingHelper/LadyHelper2" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7 )
+
+[node name="LadyHelper3" type="Spatial" parent="RotatingHelper"]
+transform = Transform( -0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0, 0, 0 )
+
+[node name="Lady" parent="RotatingHelper/LadyHelper3" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Rotate = SubResource( 1 )
+autoplay = "rotate"
+anims/rotate = SubResource( 1 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 
