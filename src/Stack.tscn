@@ -30,7 +30,8 @@ radius = 3.1
 transform = Transform( 2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0 )
 
 [node name="RotatingHelper" type="Spatial" parent="."]
-transform = Transform( 0.870674, 0, -0.491861, 0, 1.045, 0, 0.491861, 0, 0.870674, 0, 0, 0 )
+transform = Transform( -0.105723, 0, 0.994396, 0, 1.045, 0, -0.994396, 0, -0.105723, 0, 0, 0 )
+visible = false
 
 [node name="Dancer1" type="Sprite3D" parent="RotatingHelper"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0 )

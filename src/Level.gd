@@ -65,6 +65,10 @@ func _update_enviroment():
   main_light.rotation_degrees.x = -20 - (150 * completed)
   sun_helper.rotation_degrees.x = -10 - (160 * completed)
 
+func _input(event):
+  if Input.is_action_pressed("ui_cancel"):
+    get_tree().quit()
+
 func add_point():
   current_points += 1
   _update_enviroment()
