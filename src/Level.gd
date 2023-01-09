@@ -21,6 +21,9 @@ onready var sun_material : SpatialMaterial = $SunHelper/SunSphere.get_surface_ma
 onready var enviroment : Environment = $WorldEnvironment.environment
 
 func _ready():
+  $Objects/Stack/StaticBody/CollisionShape.disabled = true
+  $Objects/Fire/StaticBody/CollisionShape.disabled = true
+  
   var grass := $Grass
   var straw_scene = load("res://src/Straw.tscn")
   var width = 20
@@ -76,9 +79,11 @@ func _task_completed():
 func fade_out_finished():
   yield(get_tree().create_timer(0.5), "timeout")
   $FadeOut/AnimationPlayer.play('fade_in')
-  $Stack.show()
-  $Fire.show()
-  $Fire/FireSoundPlayer.play()
+  $Objects/Stack.show()
+  $Objects/Stack/StaticBody/CollisionShape.disabled = false
+  $Objects/Fire.show()
+  $Objects/Fire/StaticBody/CollisionShape.disabled = false
+  $Objects/Fire/FireSoundPlayer.play()
 
   sun_material.albedo_color = night_sun_color
   sun_helper.rotation_degrees.x = -45

@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://src/Stack.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Level.gd" type="Script" id=2]
 [ext_resource path="res://src/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/FadeOut.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Fire.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/bucket.glb" type="PackedScene" id=6]
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0.486275, 0.266667, 0.266667, 1 )
@@ -28,20 +29,16 @@ background_mode = 3
 background_sky = SubResource( 6 )
 fog_color = Color( 0.501961, 0.6, 0.701961, 1 )
 
+[sub_resource type="CylinderShape" id=7]
+height = 3.0
+radius = 0.3
+
 [node name="Level" type="Spatial"]
 script = ExtResource( 2 )
 
 [node name="Ground" type="MeshInstance" parent="."]
 transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
 mesh = SubResource( 1 )
-
-[node name="Stack" parent="." instance=ExtResource( 1 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
-visible = false
-
-[node name="Fire" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5884, 0, -6.82221 )
-visible = false
 
 [node name="Grass" type="Spatial" parent="."]
 
@@ -66,3 +63,21 @@ environment = SubResource( 5 )
 
 [node name="FadeOut" parent="." instance=ExtResource( 4 )]
 visible = false
+
+[node name="Objects" type="Spatial" parent="."]
+
+[node name="Fire" parent="Objects" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5884, 0, -6.82221 )
+visible = false
+
+[node name="Stack" parent="Objects" instance=ExtResource( 1 )]
+visible = false
+
+[node name="Bucket" parent="Objects" instance=ExtResource( 6 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -9, -0.1, -10 )
+
+[node name="StaticBody" type="StaticBody" parent="Objects/Bucket"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Bucket/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 7 )
