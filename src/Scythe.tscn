@@ -33,7 +33,7 @@ skeleton = NodePath("../MeshInstance")
 [node name="RayCast" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 enabled = true
-cast_to = Vector3( -3, 0, 0 )
+cast_to = Vector3( -2.5, 0, 0 )
 collide_with_areas = true
 collide_with_bodies = false
 
