@@ -57,7 +57,8 @@ func _update_enviroment():
     sun_material.albedo_color = noon_sun_color.linear_interpolate(evening_sun_color, coef)
     enviroment.background_color = noon_sky_color.linear_interpolate(evening_sky_color, coef)
 
-  main_light.light_color = sun_material.albedo_color.linear_interpolate(Color.white, 0.1)
+  main_light.light_color = sun_material.albedo_color
+
   main_light.rotation_degrees.x = -20 - (150 * completed)
   sun_helper.rotation_degrees.x = -10 - (160 * completed)
 

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/heystack.glb" type="PackedScene" id=1]
+
+[node name="Stack" type="Spatial"]
+
+[node name="RotatingHelper" type="Spatial" parent="."]
+
+[node name="heystack" parent="." instance=ExtResource( 1 )]

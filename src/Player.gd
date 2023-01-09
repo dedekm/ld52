@@ -34,7 +34,7 @@ func _process_cutting():
     var obj : Object = scythe_ray.get_collider()
 
     if obj.is_in_group("grass"):
-      obj.get_parent().mow(scythe_ray.get_collision_point())
+      obj.owner.mow(scythe_ray.get_collision_point())
 
     collisions.append(obj)
     scythe_ray.add_exception(obj)

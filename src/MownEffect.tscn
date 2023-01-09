@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/MownEffect.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+params_billboard_mode = 3
+params_billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 0.85098, 0.627451, 0.4, 1 )
+
+[sub_resource type="QuadMesh" id=1]
+material = SubResource( 2 )
+size = Vector2( 0.075, 0.15 )
+
+[node name="MownEffect" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Particles" type="CPUParticles" parent="."]
+emitting = false
+amount = 3
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.4
+mesh = SubResource( 1 )
+direction = Vector3( 0, 1, 0 )
+initial_velocity = 2.0

@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/Straw.gd" type="Script" id=1]
 [ext_resource path="res://assets/straw.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://assets/grass_cut.png" type="Texture" id=3]
 [ext_resource path="res://assets/grass.png" type="Texture" id=4]
-
-[sub_resource type="BoxShape" id=3]
+[ext_resource path="res://assets/grass_1.png" type="Texture" id=5]
+[ext_resource path="res://assets/grass_0.png" type="Texture" id=6]
+[ext_resource path="res://assets/grass_cut_0.png" type="Texture" id=7]
+[ext_resource path="res://assets/grass_bits.png" type="Texture" id=8]
 
 [sub_resource type="AtlasTexture" id=4]
 flags = 3
@@ -35,25 +37,63 @@ animations = [ {
 "speed": 3.0
 } ]
 
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.85098, 0.627451, 0.4, 1 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "cut",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 1.0
+} ]
+
+[sub_resource type="BoxShape" id=3]
+
 [node name="Straw" type="Spatial"]
 script = ExtResource( 1 )
 
-[node name="HitArea" type="Area" parent="."]
-transform = Transform( 0.25, 0, 0, 0, 1, 0, 0, 0, 0.25, 0, 1, 0 )
-
-[node name="CollisionShape" type="CollisionShape" parent="HitArea"]
-shape = SubResource( 3 )
-
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+[node name="_AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0 )
+visible = false
 billboard = 2
 shaded = true
 alpha_cut = 2
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
-[node name="StrawMesh" type="MeshInstance" parent="."]
+[node name="_StrawMesh" type="MeshInstance" parent="."]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -1.08371, 0 )
 visible = false
 mesh = ExtResource( 2 )
+material/0 = SubResource( 8 )
+
+[node name="StrawSprite" type="AnimatedSprite3D" parent="."]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 1.5, 0 )
+billboard = 2
+shaded = true
+double_sided = false
+alpha_cut = 2
+frames = SubResource( 9 )
+playing = true
+
+[node name="HitArea" type="Area" parent="StrawSprite"]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StrawSprite/HitArea"]
+transform = Transform( 0.1, 0, 0, 0, 1.5, 0, 0, 0, 0.1, 0, 0.5, 0 )
+shape = SubResource( 3 )
+
+[node name="BitsSprite" type="Sprite3D" parent="."]
+transform = Transform( -1, 8.74228e-08, 0, 3.82137e-15, 4.37114e-08, 1, 8.74228e-08, 1, -4.37114e-08, 0, 0.001, 0 )
+visible = false
+pixel_size = 0.1
+shaded = true
+double_sided = false
+texture = ExtResource( 8 )
