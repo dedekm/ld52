@@ -10,13 +10,13 @@ var cutting := false
 
 const DEACCEL= 16
 const MAX_SLOPE_ANGLE = 40
-const MOUSE_SENSITIVITY = 0.1
+const MOUSE_SENSITIVITY = 0.09
 
-onready var camera := $Rotation_Helper/Camera
-onready var rotation_helper := $Rotation_Helper
-onready var hands := $Rotation_Helper/Hands
-onready var scythe := $Rotation_Helper/Hands/Scythe
-onready var scythe_ray := $Rotation_Helper/Hands/Scythe/RayCast
+onready var camera := $RotationHelper/Camera
+onready var rotation_helper := $RotationHelper
+onready var hands := $RotationHelper/Hands
+onready var scythe := $RotationHelper/Hands/Scythe
+onready var scythe_ray := $RotationHelper/Hands/Scythe/RayCast
 
 func _ready():
   Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -34,7 +34,7 @@ func _process_cutting():
     var obj : Object = scythe_ray.get_collider()
 
     if obj.is_in_group("grass"):
-      obj.get_parent().cut(scythe_ray.get_collision_point())
+      obj.get_parent().mow(scythe_ray.get_collision_point())
 
     collisions.append(obj)
     scythe_ray.add_exception(obj)
@@ -109,8 +109,9 @@ func _process_movement(delta):
 func _input(event):
   if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
     if cutting:
-      hands.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY * -1))
-      hands.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
+      rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY * 0.5 * -1))
+      hands.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * 0.3 * -1))
+      self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * 0.1 * -1))
     else:
       rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY * -1))
       self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
